@@ -1,0 +1,17 @@
+KvmBridge is licensed under the MIT License (see LICENSE).
+
+The Windows executable includes Microsoft .NET and ASP.NET Core runtime components
+and references Microsoft.Extensions.Hosting.WindowsServices and System.IO.Ports.
+These projects are distributed under their own applicable licenses and notices:
+https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+https://github.com/dotnet/runtime/blob/main/THIRD-PARTY-NOTICES.TXT
+https://github.com/dotnet/aspnetcore/blob/main/LICENSE.txt
+https://github.com/dotnet/aspnetcore/blob/main/THIRD-PARTY-NOTICES.txt
+
+The runtime license texts accompanying the bundled dependency versions are included
+in third-party/. Dependencies are pinned in src/KvmBridge/packages.lock.json.
+Apple's scripting runtime and command-line tools are provided by macOS.
+
+Stream Deck button artwork in this repository was created for this project.
+Product and company names are used solely to describe compatibility; no affiliation
+or endorsement is claimed. Vendor manuals are linked, not redistributed.

@@ -1,0 +1,27 @@
+# Generated builds and local runtime data
+**/bin/
+**/obj/
+dist/
+artifacts/
+*.app/
+*.exe
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
+# Private credentials, certificates, exports, and logs
+client.conf
+config.json
+server-url.txt
+*.pfx
+*.p12
+*.pem
+*.key
+*.log
+*.log.*
+*.streamDeckProfile
+*.streamDeckProfilesBackup
+.env*
+id_*
+*_ed25519*
+ssh_known_hosts

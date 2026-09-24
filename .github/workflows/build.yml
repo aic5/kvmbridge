@@ -1,0 +1,62 @@
+name: Build and test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          global-json-file: global.json
+      - run: dotnet restore src/KvmBridge/KvmBridge.csproj --locked-mode
+      - run: dotnet publish src/KvmBridge/KvmBridge.csproj -c Release -r win-x64 --self-contained true --no-restore -o dist/windows
+      - run: ./dist/windows/KvmBridge.exe self-test
+      - name: Validate PowerShell scripts
+        shell: pwsh
+        run: |
+          foreach ($f in Get-ChildItem windows -File) {
+            $text = Get-Content $f.FullName -Raw
+            if ($f.Extension -eq '.bat') { $text = ($text -split '(?m)^# POWERSHELL_PAYLOAD\r?$', 2)[1] }
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseInput($text, [ref]$null, [ref]$errors)
+            if ($errors.Count) { throw ($errors | Out-String) }
+          }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: KvmBridge-windows-x64
+          path: |
+            dist/windows/KvmBridge.exe
+            LICENSE
+            NOTICE
+            third-party/
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Build and test host
+        shell: bash
+        run: |
+          if [[ "$(uname -m)" == arm64 ]]; then rid=osx-arm64; else rid=osx-x64; fi
+          dotnet restore src/KvmBridge/KvmBridge.csproj --locked-mode
+          dotnet publish src/KvmBridge/KvmBridge.csproj -c Release -r "$rid" --self-contained true --no-restore -o dist/test-host
+          ./dist/test-host/KvmBridge self-test
+          python3 src/KvmBridge/integration_test.py ./dist/test-host/KvmBridge artifacts/integration
+      - run: python3 mac/test_recovery.py && python3 mac/test_config.py
+      - run: python3 mac/build.py --output dist/KvmBridge-Mac
+      - name: Package apps preserving executable permissions
+        run: ditto -c -k --keepParent dist/KvmBridge-Mac dist/KvmBridge-Mac.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: KvmBridge-Mac
+          path: dist/KvmBridge-Mac.zip
