@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">RS232 wiring: cross TX and RX</title>
+  <desc id="desc">With the Waveshare converter set to RS232 and NC, wire TX/A to KVM RX, RX/B to KVM TX, and GND to GND. This schematic shows signal labels, not physical pin positions. Use 9600 baud, 8N1 and no flow control. The 120R setting is for RS485.</desc>
+  <defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#e9f0fa}.label{font-size:22px;font-weight:700}.note{font-size:17px;fill:#b4c4da}.pin{font-size:24px;font-weight:700}</style></defs>
+  <rect width="1120" height="560" rx="24" fill="#0c1524"/>
+  <text x="44" y="47" font-size="14" font-weight="700" letter-spacing="3" fill="#50d9c0">KVMBRIDGE / SERIAL WIRING</text>
+  <text x="44" y="94" font-size="36" font-weight="700">Cross TX and RX. Connect ground.</text>
+  <text x="44" y="127" class="note">Signal labels only — follow the actual labels on your hardware.</text>
+
+  <rect x="44" y="167" width="322" height="296" rx="16" fill="#152238" stroke="#334761"/>
+  <text x="70" y="205" class="label">Waveshare converter</text>
+  <text x="70" y="234" class="note">Direct USB to Windows</text>
+  <rect x="754" y="167" width="322" height="296" rx="16" fill="#152238" stroke="#334761"/>
+  <text x="780" y="205" class="label">TESmart KVM</text>
+  <text x="780" y="234" class="note">RS232 control connector</text>
+
+  <text x="290" y="292" class="pin" text-anchor="end">TX / A</text>
+  <text x="290" y="367" class="pin" text-anchor="end">RX / B</text>
+  <text x="290" y="442" class="pin" text-anchor="end">GND</text>
+  <text x="828" y="292" class="pin">TX</text>
+  <text x="828" y="367" class="pin">RX</text>
+  <text x="828" y="442" class="pin">GND</text>
+  <path d="M330 284 H412 L708 359 H790" fill="none" stroke="#57b5ff" stroke-width="5"/>
+  <path d="M330 359 H412 L708 284 H790" fill="none" stroke="#0c1524" stroke-width="15"/>
+  <path d="M330 359 H412 L708 284 H790" fill="none" stroke="#50d9c0" stroke-width="5"/>
+  <path d="M330 434 H790" fill="none" stroke="#edbd65" stroke-width="5"/>
+  <g fill="#57b5ff"><circle cx="330" cy="284" r="7"/><circle cx="790" cy="359" r="7"/></g>
+  <g fill="#50d9c0"><circle cx="330" cy="359" r="7"/><circle cx="790" cy="284" r="7"/></g>
+  <g fill="#edbd65"><circle cx="330" cy="434" r="7"/><circle cx="790" cy="434" r="7"/></g>
+  <text x="560" y="391" font-size="14" fill="#b4c4da" text-anchor="middle">Crossed lines do not join</text>
+
+  <rect x="44" y="488" width="1032" height="44" rx="10" fill="#102d30"/>
+  <text x="65" y="516" font-size="17">RS232 + NC</text>
+  <text x="292" y="516" font-size="17">9600 · 8N1 · No flow control</text>
+  <text x="687" y="516" font-size="17">120R termination is for RS485</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="580" viewBox="0 0 1120 580" role="img" aria-labelledby="title desc">
+  <title id="title">KvmBridge: one button, both monitors</title>
+  <desc id="desc">Stream Deck opens a silent Mac app. The app sends an HTTPS request with an API key over the LAN to a Windows service. Windows sends the selection through a USB-to-RS232 adapter to the TESmart KVM. Both monitors show the selected computer. This is a control-path diagram, not a complete cabling diagram.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#71849e"/></marker>
+    <style>text{font-family:Arial,Helvetica,sans-serif;fill:#e9f0fa}.label{font-size:20px;font-weight:700}.note{font-size:16px;fill:#b4c4da}.small{font-size:14px;fill:#b4c4da}.box{fill:#152238;stroke:#334761;stroke-width:1.5}.line{fill:none;stroke:#71849e;stroke-width:2.5;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1120" height="580" rx="24" fill="#0c1524"/>
+  <text x="44" y="47" font-size="14" font-weight="700" letter-spacing="3" fill="#50d9c0">KVMBRIDGE / HOW IT WORKS</text>
+  <text x="44" y="94" font-size="36" font-weight="700">One button. Both monitors.</text>
+  <text x="44" y="127" class="note">A local control path from your desk to the KVM.</text>
+
+  <rect class="box" x="44" y="179" width="220" height="124" rx="16"/>
+  <text x="64" y="213" class="label">Stream Deck</text>
+  <g font-size="19" font-weight="700" text-anchor="middle">
+    <rect x="64" y="234" width="37" height="42" rx="7" fill="#245ba1"/><text x="82" y="261">1</text>
+    <rect x="109" y="234" width="37" height="42" rx="7" fill="#186b60"/><text x="127" y="261">2</text>
+    <rect x="154" y="234" width="37" height="42" rx="7" fill="#7d5c20"/><text x="172" y="261">3</text>
+    <rect x="199" y="234" width="37" height="42" rx="7" fill="#614393"/><text x="217" y="261">4</text>
+  </g>
+  <path class="line" d="M264 246 H338"/>
+  <text x="301" y="229" class="small" text-anchor="middle">Open</text>
+
+  <rect class="box" x="348" y="179" width="270" height="124" rx="16"/>
+  <text x="372" y="215" class="label">Mac launcher</text>
+  <text x="372" y="246" class="note">KVM Computer 1–4.app</text>
+  <text x="372" y="276" class="small">Runs silently in the background</text>
+  <path class="line" d="M618 246 H802"/>
+  <text x="712" y="222" class="small" text-anchor="middle">HTTPS + API key</text>
+  <text x="712" y="274" class="small" text-anchor="middle">Local network</text>
+
+  <rect class="box" x="812" y="179" width="264" height="124" rx="16"/>
+  <text x="836" y="215" class="label">Windows service</text>
+  <text x="836" y="246" class="note">KvmBridge · TCP 8443</text>
+  <text x="836" y="276" class="small">Host stays awake</text>
+  <path class="line" d="M944 303 V376"/>
+  <text x="963" y="346" class="small">Direct USB</text>
+
+  <rect class="box" x="812" y="387" width="264" height="108" rx="16"/>
+  <text x="836" y="424" class="label">Serial converter</text>
+  <text x="836" y="455" class="note">USB → RS232</text>
+  <text x="836" y="479" class="small">Waveshare FT232RNL</text>
+  <path class="line" d="M812 441 H628"/>
+  <text x="720" y="421" class="small" text-anchor="middle">TX / RX / GND</text>
+  <text x="720" y="470" class="small" text-anchor="middle">9600 baud · 8N1</text>
+
+  <rect class="box" x="348" y="387" width="270" height="108" rx="16"/>
+  <text x="372" y="424" class="label">TESmart KVM</text>
+  <text x="372" y="455" class="note">Select computer 1, 2, 3 or 4</text>
+  <text x="372" y="479" class="small">HKS0802A1U / HKS402-E23</text>
+  <path class="line" d="M348 441 H274"/>
+
+  <rect x="44" y="387" width="220" height="108" rx="16" fill="#102d30" stroke="#2d8075" stroke-width="1.5"/>
+  <text x="65" y="423" class="label">Both monitors</text>
+  <text x="65" y="454" class="note">One selected computer</text>
+  <text x="65" y="478" class="small">Existing video connections</text>
+  <text x="44" y="548" class="small">Control-path schematic · Other LAN clients can call the same API · No video streaming</text>
+</svg>
