@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="580" viewBox="0 0 1120 580" role="img" aria-labelledby="title desc">
-  <title id="title">KvmBridge: one button, both monitors</title>
+  <title id="title">KvmBridge: Switching Setups with One Button</title>
   <desc id="desc">Stream Deck opens a silent Mac app. The app sends an HTTPS request with an API key over the LAN to a Windows service. Windows sends the selection through a USB-to-RS232 adapter to the TESmart KVM. Both monitors show the selected computer. This is a control-path diagram, not a complete cabling diagram.</desc>
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8Z" fill="#71849e"/></marker>
@@ -7,7 +7,7 @@
   </defs>
   <rect width="1120" height="580" rx="24" fill="#0c1524"/>
   <text x="44" y="47" font-size="14" font-weight="700" letter-spacing="3" fill="#50d9c0">KVMBRIDGE / HOW IT WORKS</text>
-  <text x="44" y="94" font-size="36" font-weight="700">One button. Both monitors.</text>
+  <text x="44" y="94" font-size="36" font-weight="700">Switching Setups with One Button</text>
   <text x="44" y="127" class="note">A local control path from your desk to the KVM.</text>
 
   <rect class="box" x="44" y="179" width="220" height="124" rx="16"/>
