@@ -62,3 +62,16 @@ local request/timing history. Apps embed that worker and handle both initial and
 
 Avoid adding automatic retries after ambiguous serial writes. Protocol observations are
 not proof of video routing, and the hardware has no transaction IDs or verified heartbeat.
+
+## Release archives
+
+After building Windows and Mac artifacts, run on macOS:
+
+```sh
+python3 scripts/package_release.py
+```
+
+This creates Windows/Mac ZIP files and SHA256SUMS.txt in `dist/release`, including
+documentation, button icons, optional setup tools and dependency licenses. It uses an
+explicit file list and excludes private client exports. GitHub also provides a source
+archive for each release tag. Inspect archives before publishing.
