@@ -13,35 +13,29 @@ an authenticated HTTPS API lets you do the same from curl or another LAN client.
 *The control path. Your existing video and keyboard/mouse connections stay connected
 to the KVM; video does not travel through KvmBridge.*
 
-Like the [Face Hugger Fan for DGX Spark](https://github.com/aic5/face-hugger-fan-dgx-spark),
-this project adds a small, local control layer to hardware already on the desk.
-Here, the result is a button for each computer, backed by a service that translates
+This project adds a small, local control layer to hardware already available. Here, the result is a button for each computer, backed by a service that translates
 network requests into the KVM's serial commands.
 
 [Setup guide](#setup-guide) · [Parts and Amazon associate links](#parts-and-amazon-associate-links) ·
 [Troubleshooting](#troubleshooting) · [Documentation](#documentation)
 
-## What you can do
+## What this can do
 
 - Select one of four KVM inputs and switch **both monitors together**.
 - Use Stream Deck's built-in **System → Open** action, with no plugin or Terminal window.
 - Send the same selection from scripts or other computers on your LAN.
 - Read the latest observed selection, including changes made on the KVM's front panel.
 - Run the Windows service automatically, without signing in, with serial reconnection.
+- Allow agents to control monitor and keyboard setups directly.
 
-The Windows host must stay awake. The Mac launchers do not wake a sleeping host.
-Selection status comes from serial events, so it is **not a live check of the picture
+The Windows host must stay awake. I used a Mac launcher to connect to the windows PC and switch the screens. Selection status comes from serial events, so it is **not a live check of the picture
 on your monitors**. See [status and compatibility limits](#status-and-compatibility-limits).
 
 ## Parts and Amazon associate links
 
-The verified build uses a **TESmart HKS0802A1U**, also listed as **HKS402-E23**, and a
-**Waveshare USB to RS232/485 converter with FT232RNL**. Check the exact model before
+The verified build uses a **TESmart HKS0802A1U**, also listed as **HKS402-E23**, and a **Waveshare USB to RS232/485 converter with FT232RNL**. Check the exact model before
 buying: a similar-looking KVM or serial connector does not establish compatibility.
-
-The Amazon links below are affiliate links. Purchases through these links may earn
-me a commission at no additional cost to you.
-**As an Amazon Associate I earn from qualifying purchases.**
+The Amazon links below are affiliate links. Purchases through these links may earn me a commission at no additional cost to you.
 
 | Item | Purpose / what to check | Amazon associate link |
 | --- | --- | --- |
@@ -50,14 +44,10 @@ me a commission at no additional cost to you.
 | TESmart four-port dual-monitor DisplayPort KVM switch | Additional working option confirmed by the project author; the original build uses the HDMI model above | [View on Amazon](https://amzn.to/4dyWrwg) |
 | Elgato Stream Deck | Optional physical buttons; the guide uses the Mac Stream Deck app | — |
 
-**KVM model note:** The original build uses the HDMI-based HKS0802A1U / HKS402-E23.
-The project author has also confirmed that the linked DisplayPort KVM works with
-KvmBridge. The detailed wiring and protocol notes describe the original HDMI build.
+**KVM model note:** The original build uses the HDMI-based HKS0802A1U / HKS402-E23. The project should also work with the the DisplayPort KVM. 
 
-You also need a **Windows x64 host** with the FTDI VCP driver installed, a **Mac** for
-the supplied launchers, and a trusted local network. Keep your existing KVM video and
-USB cables. Python 3 is needed for Mac setup; the generated apps use built-in macOS
-tools at runtime. The Windows release includes .NET, so no separate runtime is needed.
+You also need a **Windows x64 host** with the FTDI VCP driver installed, a **Mac** (or other device or computer) and a trusted local network. Keep your existing KVM video and
+USB cables. I used Python 3 for Mac setup; the generated apps use built-in macOS tools at runtime. The Windows release includes .NET, so no separate runtime is needed.
 
 Manufacturer references: [TESmart model FAQ](https://support.tesmart.com/hc/en-us/articles/24748311049113-HKS402-E23-Previously-HKS0802A1U-FAQ)
 and [Waveshare converter documentation](https://www.waveshare.com/wiki/USB_TO_RS232/485).
@@ -68,12 +58,9 @@ and [Waveshare converter documentation](https://www.waveshare.com/wiki/USB_TO_RS
 
 ![USB-to-RS232/485 converter connected by a short cable to a green screw terminal block, with a small screwdriver alongside.](docs/images/usb-rs232-converter-assembly.png)
 
-*The converter and assembled serial cable. Use the signal labels and wiring diagram
-below to make the connections; the photo is an assembly reference.*
+*The converter and assembled serial cable. Use the signal labels and wiring diagram below to make the connections; the photo is an assembly reference.*
 
-Start with the KVM's normal monitor and computer connections working. Connect the
-USB converter **directly to the Windows host**, rather than to a USB port switched
-by the KVM. Set the converter to **RS232** and **NC**, then connect these signals:
+Start with the KVM's normal monitor and computer connections working. Connect the USB converter **directly to the Windows host**, rather than to a USB port switched by the KVM. Set the converter to **RS232** and **NC**, then connect these signals:
 
 ![RS232 wiring schematic: converter TX/A connects to KVM RX, converter RX/B connects to KVM TX, and GND connects to GND. Use RS232 and NC settings; labels indicate signals, not physical pin positions.](docs/images/rs232-wiring.svg)
 
@@ -83,18 +70,13 @@ by the KVM. Set the converter to **RS232** and **NC**, then connect these signal
 | RX / B | TX |
 | GND | GND |
 
-**TX crosses to RX.** Follow the labels on your hardware; the diagram shows signal
-connections, not connector pin positions. `120R` termination is for RS485, not this
-RS232 connection. The service uses **9600 baud, 8N1, no flow control**.
+**TX crosses to RX.** Follow the labels on your hardware; the diagram shows signal connections, not connector pin positions. `120R` termination is for RS485, not this RS232 connection. The service uses **9600 baud, 8N1, no flow control**.
 
-Keep Stream Deck connected to the controlling Mac if you want its buttons to remain
-available when the KVM changes USB focus.
+Keep Stream Deck connected to the controlling Mac if you want its buttons to remain available when the KVM changes USB focus.
 
 ### 2. Install the Windows service
 
-Get `KvmBridge.exe` from [Releases](https://github.com/aic5/kvmbridge/releases), or
-[build it from source](docs/development.md). Open **PowerShell as Administrator**
-in the folder containing the executable:
+Get `KvmBridge.exe` from [Releases](https://github.com/aic5/kvmbridge/releases), or [build it from source](docs/development.md). Open **PowerShell as Administrator** in the folder containing the executable:
 
 ```powershell
 .\KvmBridge.exe ports
@@ -107,26 +89,17 @@ Find the converter's COM port in the output, then install and export the Mac cli
 .\KvmBridge.exe client --output .\KvmBridge-Mac
 ```
 
-Replace `COM5` with your port. Alternatively, install with
-`--serial YOUR_FTDI_SERIAL` instead of `--port COM5` to follow the adapter when its
-COM number changes. There is no machine-specific default.
+Replace `COM5` with your port. Alternatively, install with `--serial YOUR_FTDI_SERIAL` instead of `--port COM5` to follow the adapter when its COM number changes. There is no machine-specific default.
 
-The installer creates an automatic Windows service, HTTPS certificates, an API key,
-and a TCP 8443 firewall rule restricted to the local subnet on **Private/Domain**
-networks. Use a trusted network and keep Windows awake.
+The installer creates an automatic Windows service, HTTPS certificates, an API key, and a TCP 8443 firewall rule restricted to the local subnet on **Private/Domain** networks. Use a trusted network and keep Windows awake.
 
-For a stable address, use a DHCP reservation. You can set `--host YOUR_HOST_OR_IP`
-at installation to choose the address covered by the certificate. Changing that
-address later may require certificate renewal; see the
-[Windows setup and maintenance guide](docs/windows.md).
+For a stable address, use a DHCP reservation. You can set `--host YOUR_HOST_OR_IP` at installation to choose the address covered by the certificate. Changing that address later may require certificate renewal; see the [Windows setup and maintenance guide](docs/windows.md).
 
 ### 3. Install the Mac controls
 
-Privately transfer the exported `KvmBridge-Mac` folder to the Mac. **It contains your
-API key**; keep it out of public repositories and cloud-synced folders.
+Privately transfer the exported `KvmBridge-Mac` folder to the Mac. **It contains your API key**; keep it out of public repositories and cloud-synced folders.
 
-Download or clone this repository on the Mac. In Terminal, change into its root
-folder, then run the following with the actual path to your exported client folder:
+Download or clone this repository on the Mac. In Terminal, change into its root folder, then run the following with the actual path to your exported client folder:
 
 ```sh
 python3 mac/build.py --client /path/to/KvmBridge-Mac --output "$HOME/Applications/KvmBridge"
