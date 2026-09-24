@@ -161,6 +161,11 @@ physical input labels; input 1 is not assumed to be your Mac or Windows host.
 
 ### 5. Add four Stream Deck buttons
 
+![Stream Deck with four buttons labeled KVM #1 through KVM #4 highlighted across the middle row.](docs/images/stream-deck-kvm-buttons.png)
+
+*The configured Stream Deck: the four highlighted buttons select KVM inputs 1–4.
+This setup uses custom icons; the numbered icons included in the repository are shown below.*
+
 ![Included Stream Deck icons: four monitor-shaped buttons numbered 1 through 4, in blue, green, yellow and purple.](streamdeck/icons/preview.png)
 
 In the Mac Stream Deck editor:
