@@ -1,4 +1,4 @@
-# KvmBridge
+# KVM R232 Bridge (StreamDeck to KVM)
 
 [![Build and test](https://github.com/aic5/kvmbridge/actions/workflows/build.yml/badge.svg)](https://github.com/aic5/kvmbridge/actions/workflows/build.yml)
 
